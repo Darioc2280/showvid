@@ -1,0 +1,59 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+
+	<!-- HERO
+	================================================== -->
+  <div class="hero">
+    <div class="outter">
+      <div class="inner">
+        <div class="hero-content">
+          <div class="container">
+              <span class="little">Real Stories</span>
+              <h1 class="subhero-title">Writing in teresting stufff or <br>
+                <span>creative people.</span></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% for post in posts %}
+   	<!-- NEWS
+	================================================== -->
+  <section class="news-list atop">
+    <div class="container">
+      <div class="row">
+        <!-- Post -->
+        <article class="col-lg-12">
+          <div class="post-image">
+            <img src="{{post.image.url}}" alt="">
+          </div>
+          <div class="article-content">
+            <div class="article-top">
+              <ul class="entry-data">
+                 {% for category in post.categories.all %}
+                     <li> <a href="{% url 'category' category.id %}" class="link">{{category.name}}</a></li>{% if not forloop.last %},{% endif %}
+                     {% endfor %}
+              </ul>
+              <div class="entry-date">
+                  <a href="#">{{post.published|date:"SHORT_DATE_FORMAT"}}</a>
+              </div>
+            </div>
+            <div class="col-lg-8 offset-lg-2 article-bottom text-center">
+              <a href="news-detail.html" data-type="ajax-load"><h2 class="article-title">{{post.title}}</h2></a>
+              <p>{{post.content|linebreaks}} </p>
+           </div>
+          </div>
+      </div> <!-- row end -->
+    </div>  <!-- container end-->
+  </section>
+<br>
+  {% endfor %}
+{% endblock %}
+
+
+    
